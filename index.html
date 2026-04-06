@@ -1142,6 +1142,9 @@
   </ul>
 
   <div class="nav-actions">
+    <a href="https://github.com/Metabuilder-Labs/openclawwatch" target="_blank" rel="noopener noreferrer" class="nav-github" title="GitHub" style="display:inline-flex;align-items:center;margin-right:12px;color:var(--white-dim);transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--white-dim)'">
+      <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    </a>
     <a href="#waitlist" class="btn-primary" onclick="trackEvent('cta_click', 'conversion', 'join_waitlist_nav')">Join waitlist</a>
   </div>
 </nav>
@@ -1229,8 +1232,8 @@
     <div class="install-cmds">
       <div class="install-cmd">
         <span class="install-cmd-lang">pip</span>
-        <span class="install-cmd-code">pip install ocw</span>
-        <button class="copy-btn" onclick="copyText('pip install ocw', this)" title="Copy">
+        <span class="install-cmd-code">pip install openclawwatch</span>
+        <button class="copy-btn" onclick="copyText('pip install openclawwatch', this)" title="Copy">
           <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M2 10V3a1 1 0 011-1h7"/></svg>
         </button>
       </div>
@@ -1326,7 +1329,7 @@
             <div class="solution-item-check">
               <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 5l2.5 2.5 3.5-4"/></svg>
             </div>
-            <span>Works with OpenClaw, LangChain, CrewAI, AutoGen, OpenAI Assistants, or any custom agent</span>
+            <span>Works with OpenClaw, LangChain, LangGraph, LlamaIndex, CrewAI, AutoGen, OpenAI Agents SDK, Anthropic (direct), Google Gemini, AWS Bedrock, NemoClaw, or any custom agent</span>
           </div>
         </div>
       </div>
@@ -1359,7 +1362,7 @@
         </div>
         <div class="feature-title">Token & cost tracking</div>
         <p class="feature-desc">Real-time USD cost per LLM call, attributed to the agent and tool that triggered it. Configurable daily/session/per-agent budget alerts fire before you get the bill.</p>
-        <span class="feature-badge badge-oss">per-model pricing YAML</span>
+        <span class="feature-badge badge-oss">per-model pricing TOML</span>
       </div>
 
       <div class="feature-card">
@@ -1406,10 +1409,14 @@
         <div class="integration-pill"><div class="integration-dot"></div>OpenClaw</div>
         <div class="integration-pill"><div class="integration-dot"></div>LangChain</div>
         <div class="integration-pill"><div class="integration-dot"></div>LangGraph</div>
+        <div class="integration-pill"><div class="integration-dot"></div>LlamaIndex</div>
         <div class="integration-pill"><div class="integration-dot"></div>CrewAI</div>
         <div class="integration-pill"><div class="integration-dot"></div>AutoGen</div>
-        <div class="integration-pill"><div class="integration-dot"></div>OpenAI Assistants</div>
-        <div class="integration-pill"><div class="integration-dot"></div>Anthropic Claude</div>
+        <div class="integration-pill"><div class="integration-dot"></div>OpenAI Agents SDK</div>
+        <div class="integration-pill"><div class="integration-dot"></div>Anthropic (direct)</div>
+        <div class="integration-pill"><div class="integration-dot"></div>Google Gemini</div>
+        <div class="integration-pill"><div class="integration-dot"></div>AWS Bedrock</div>
+        <div class="integration-pill"><div class="integration-dot"></div>NemoClaw</div>
         <div class="integration-pill" style="border-right: none;"><div class="integration-dot"></div>Custom agents</div>
       </div>
     </div>
@@ -1484,6 +1491,14 @@
           </tr>
           <tr>
             <td class="feat-name">Cost budget alerts<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(245,248,255,0.3);display:block;margin-top:2px;">daily / session / per-agent</span></td>
+            <td class="ocw-col"><span class="yes">✓</span></td>
+            <td><span class="no">—</span></td>
+            <td><span class="no">—</span></td>
+            <td><span class="no">—</span></td>
+            <td><span class="no">—</span></td>
+          </tr>
+          <tr>
+            <td class="feat-name">NemoClaw sandbox events</td>
             <td class="ocw-col"><span class="yes">✓</span></td>
             <td><span class="no">—</span></td>
             <td><span class="no">—</span></td>
@@ -1625,7 +1640,7 @@
     <div class="waitlist-success" id="waitlist-success">
       ✓ You're on the list. We'll be in touch.
     </div>
-    <p class="waitlist-disclaimer">No spam. Just a ping when we ship. Apache 2.0 / MIT licensed.</p>
+    <p class="waitlist-disclaimer">No spam. Just a ping when we ship. MIT Licensed.</p>
 
     <!-- stats hidden until launch -->
     <!--
@@ -1657,7 +1672,6 @@
     <span class="footer-logo">Open<span>Claw</span>Watch</span>
     <div class="footer-meta">
       <span class="license-badge">MIT</span>
-      <span class="license-badge" style="border-color:rgba(34,211,122,0.3);color:var(--green);background:rgba(34,211,122,0.08);">Apache 2.0</span>
       <span>opencla.watch</span>
       <a href="https://cla.watch" target="_blank" rel="noopener noreferrer">cla.watch ↗</a>
       <a href="#">Docs</a>
@@ -1677,19 +1691,19 @@ const steps = [
   {
     label: 'install',
     lines: [
-      { txt: '$ pip install ocw', c: ['t-prompt','t-cmd'], delay: 0 },
-      { txt: 'Collecting ocw...', c: ['t-dim'], delay: 500 },
-      { txt: '  Downloading ocw-0.1.0-py3-none-any.whl', c: ['t-dim'], delay: 900 },
-      { txt: 'Successfully installed ocw-0.1.0', c: ['t-success'], delay: 1500 },
+      { txt: '$ pip install openclawwatch', c: ['t-prompt','t-cmd'], delay: 0 },
+      { txt: 'Collecting openclawwatch...', c: ['t-dim'], delay: 500 },
+      { txt: '  Downloading openclawwatch-0.1.0-py3-none-any.whl', c: ['t-dim'], delay: 900 },
+      { txt: 'Successfully installed openclawwatch-0.1.0', c: ['t-success'], delay: 1500 },
       { txt: '', delay: 1800 },
       { txt: '$ ocw --version', c: ['t-prompt','t-cmd'], delay: 2100 },
       { txt: 'ocw 0.1.0 (python 3.12)', c: ['t-dim'], delay: 2500 },
     ]
   },
   {
-    label: 'init',
+    label: 'onboard',
     lines: [
-      { txt: '$ ocw init --agent my-email-agent', c: ['t-prompt','t-cmd'], delay: 0 },
+      { txt: '$ ocw onboard --agent my-email-agent', c: ['t-prompt','t-cmd'], delay: 0 },
       { txt: '✓ Created .ocw/config.yaml', c: ['t-success'], delay: 600 },
       { txt: '✓ SQLite store at ~/.ocw/telemetry.db', c: ['t-success'], delay: 900 },
       { txt: '✓ Prometheus endpoint on :9464/metrics', c: ['t-success'], delay: 1200 },
