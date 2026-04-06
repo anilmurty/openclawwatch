@@ -19,11 +19,24 @@ No build or install step. Open `index.html` in a browser to preview. For the API
 
 ## Key Files
 
-- `index.html` — entire landing page (HTML, CSS, JS all inline). Large file (~1800 lines).
-- `api/waitlist.js` — Vercel serverless function for waitlist signup via Resend API
-- `vercel.json` — Vercel routing config
-- `og-image.png` — Open Graph social preview image
+- `index.html` — entire landing page (HTML, CSS, JS all inline). Large file (~1900 lines). Use line-targeted reads.
+- `api/waitlist.js` — Vercel serverless function (POST `/api/waitlist`) that adds emails to a Resend audience. Requires env vars `RESEND_API_KEY` and `RESEND_AUDIENCE_ID`.
+- `vercel.json` — Vercel routing config (clean URLs, `/api/waitlist` rewrite)
+- `og-image.png` — Open Graph social preview image (1200×630)
 - `.claude/landing-page-design.md` — detailed design spec for the landing page
+
+## index.html Structure
+
+The file is organized top-to-bottom as: `<style>` (~lines 35–1150) → `<body>` HTML sections (~lines 1150–1680) → `<script>` (~lines 1680–1900). Major HTML sections in order: hero (with terminal demo), "the problem", features, comparison table, waitlist CTA, footer.
+
+## Hero Terminal
+
+The interactive terminal demo has tab labels defined in **three separate places** that must be kept in sync:
+1. HTML `<button>` elements (e.g. `<button class="step-tab" ...>onboard</button>`)
+2. The `steps` array `label` property in the `<script>` block
+3. The `tabNames` array in the `<script>` block
+
+When renaming a tab, update all three.
 
 ## Design System
 
