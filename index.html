@@ -295,22 +295,6 @@
 
   .cta-secondary svg { width: 16px; height: 16px; }
 
-  .hero-meta {
-    display: flex; align-items: center; justify-content: center; gap: 24px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    color: var(--white-faint);
-    margin-bottom: 64px;
-    animation: fadeUp 0.6s ease 0.35s both;
-    flex-wrap: wrap;
-  }
-
-  .hero-meta-item {
-    display: flex; align-items: center; gap: 6px;
-  }
-
-  .hero-meta-item svg { width: 13px; height: 13px; color: var(--blue); opacity: 0.8; }
-
   /* ─── HERO INTEGRATIONS ──────────────────────────── */
   .hero-integrations {
     display: flex; align-items: center; justify-content: center;
@@ -333,6 +317,16 @@
   .hero-integration-pill:hover {
     color: var(--white);
     border-color: rgba(245,248,255,0.25);
+  }
+
+  .hero-feature-pill {
+    color: var(--blue);
+    border-color: rgba(61,142,255,0.3);
+  }
+
+  .hero-feature-pill:hover {
+    color: #5aa3ff;
+    border-color: rgba(61,142,255,0.5);
   }
 
   /* ─── TERMINAL ────────────────────────────────────── */
@@ -1135,23 +1129,12 @@
       </a>
     </div>
 
-    <div class="hero-meta">
-      <span class="hero-meta-item">
-        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="10" height="10" rx="2"/><path d="M5 7l2 2 3-3"/></svg>
-        v0.1.0-alpha
-      </span>
-      <span class="hero-meta-item">
-        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1l1.5 3.5L12 5l-2.5 2.5.5 3.5L7 9.5l-3 1.5.5-3.5L2 5l3.5-.5z"/></svg>
-        MIT License
-      </span>
-      <span class="hero-meta-item">
-        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="10" height="10" rx="2"/><path d="M5 7h4M7 5v4"/></svg>
-        Python + TypeScript
-      </span>
-      <span class="hero-meta-item">
-        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1l1.5 3.5L12 5l-2.5 2.5.5 3.5L7 9.5l-3 1.5.5-3.5L2 5l3.5-.5z"/></svg>
-        OTel SemConv compliant
-      </span>
+    <!-- Feature pills -->
+    <div class="hero-integrations" style="margin-bottom: 16px;">
+      <span class="hero-integration-pill hero-feature-pill">v0.1.0-alpha</span>
+      <span class="hero-integration-pill hero-feature-pill">MIT License</span>
+      <span class="hero-integration-pill hero-feature-pill">Python + TypeScript</span>
+      <span class="hero-integration-pill hero-feature-pill">OTel SemConv compliant</span>
     </div>
 
     <!-- Integration showcase -->
