@@ -296,6 +296,17 @@
   .cta-secondary svg { width: 16px; height: 16px; }
 
   /* ─── HERO INTEGRATIONS ──────────────────────────── */
+  .hero-strip-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--white-faint);
+    text-align: center;
+    margin-bottom: 10px;
+    animation: fadeUp 0.6s ease 0.38s both;
+  }
+
   .hero-integrations {
     display: flex; align-items: center; justify-content: center;
     gap: 8px;
@@ -1135,7 +1146,8 @@
     </div>
 
     <!-- Feature pills -->
-    <div class="hero-integrations" style="margin-bottom: 16px;">
+    <p class="hero-strip-label">FEATURES</p>
+    <div class="hero-integrations" style="margin-bottom: 24px;">
       <span class="hero-integration-pill hero-feature-pill">OTel-native telemetry</span>
       <span class="hero-integration-pill hero-feature-pill">Token &amp; cost tracking</span>
       <span class="hero-integration-pill hero-feature-pill">Autonomous agent safety alerts</span>
@@ -1145,6 +1157,7 @@
     </div>
 
     <!-- Integration showcase -->
+    <p class="hero-strip-label">INTEGRATIONS</p>
     <div class="hero-integrations">
       <span class="hero-integration-pill">Anthropic</span>
       <span class="hero-integration-pill">OpenAI</span>
