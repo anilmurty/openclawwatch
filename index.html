@@ -379,7 +379,7 @@
     text-align: left;
   }
 
-  .tline { display: block; }
+  .tline { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .tline-hidden { opacity: 0; }
 
   .t-prompt { color: rgba(61,142,255,0.7); }
@@ -1688,15 +1688,15 @@ const steps = [
   {
     label: 'traces',
     lines: [
-      { txt: '$ ocw traces --since 1h', c: ['t-prompt','t-cmd'], delay: 0 },
+      { txt: '$ ocw traces --since 1h --limit 5', c: ['t-prompt','t-cmd'], delay: 0 },
       { txt: '', delay: 400 },
-      { txt: '  TRACE        TYPE           DUR   COST', c: ['t-label'], delay: 600 },
-      { txt: '  ─────────────────────────────────────', c: ['t-dim'], delay: 700 },
-      { txt: '  a1b2c3  invoke_agent   1.2s  $0.008 ✓', c: ['t-val'], delay: 900 },
-      { txt: '  d4e5f6  send_email     0.3s   —     ⚠', c: ['t-warn'], delay: 1100 },
-      { txt: '  g7h8i9  invoke_agent   0.9s  $0.006 ✓', c: ['t-val'], delay: 1300 },
-      { txt: '  j1k2l3  read_file      0.1s   —     ✓', c: ['t-val'], delay: 1500 },
-      { txt: '  m4n5o6  invoke_agent   2.1s  $0.014 ✓', c: ['t-val'], delay: 1700 },
+      { txt: '  TRACE ID       TYPE              DUR    COST   STATUS', c: ['t-label'], delay: 600 },
+      { txt: '  ─────────────────────────────────────────────────────', c: ['t-dim'], delay: 700 },
+      { txt: '  trace-a1b2c3   invoke_agent       1.2s  $0.008  ✓', c: ['t-val'], delay: 900 },
+      { txt: '  trace-d4e5f6   tool: send_email   0.3s   —      ⚠ flagged', c: ['t-warn'], delay: 1100 },
+      { txt: '  trace-g7h8i9   invoke_agent       0.9s  $0.006  ✓', c: ['t-val'], delay: 1300 },
+      { txt: '  trace-j1k2l3   tool: read_file    0.1s   —      ✓', c: ['t-val'], delay: 1500 },
+      { txt: '  trace-m4n5o6   invoke_agent       2.1s  $0.014  ✓', c: ['t-val'], delay: 1700 },
     ]
   }
 ];
