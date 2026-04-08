@@ -374,8 +374,8 @@
 
   .terminal-body {
     padding: 20px 24px;
-    min-height: 310px;
-    overflow-y: auto;
+    height: 310px;
+    overflow: hidden;
     text-align: left;
   }
 
@@ -1668,28 +1668,8 @@ const steps = [
       { txt: '✓ Default daily budget: $10.00 per agent', c: ['t-success'], delay: 1700 },
       { txt: '✓ Daemon installed at ~/Library/LaunchAgents/com.openclawwatch.serve.plist', c: ['t-success'], delay: 1900 },
       { txt: '', delay: 2100 },
-      { txt: 'Next steps:', c: ['t-cmd'], delay: 2300 },
-      { txt: '', delay: 2400 },
-      { txt: '  1. Instrument your agent:', c: ['t-dim'], delay: 2500 },
-      { txt: '', delay: 2600 },
-      { txt: '     from ocw.sdk import watch', c: ['t-blue'], delay: 2700 },
-      { txt: '     from ocw.sdk.integrations.anthropic import patch_anthropic', c: ['t-blue'], delay: 2800 },
-      { txt: '', delay: 2900 },
-      { txt: '     patch_anthropic()', c: ['t-blue'], delay: 3000 },
-      { txt: '', delay: 3100 },
-      { txt: '     @watch(agent_id="my-agent")', c: ['t-blue'], delay: 3200 },
-      { txt: '     def run(task):', c: ['t-blue'], delay: 3300 },
-      { txt: '         ...', c: ['t-blue'], delay: 3400 },
-      { txt: '', delay: 3500 },
-      { txt: '  2. Run your agent — spans are recorded automatically', c: ['t-dim'], delay: 3600 },
-      { txt: '', delay: 3700 },
-      { txt: '  3. View telemetry:', c: ['t-dim'], delay: 3800 },
-      { txt: '     ocw status          # agent overview', c: ['t-val'], delay: 3900 },
-      { txt: '     ocw traces          # span history', c: ['t-val'], delay: 4000 },
-      { txt: '     ocw serve           # web UI at http://127.0.0.1:7391/', c: ['t-val'], delay: 4100 },
-      { txt: '', delay: 4200 },
-      { txt: '  To configure per-agent budgets, sensitive actions, or drift detection:', c: ['t-dim'], delay: 4300 },
-      { txt: '  Edit .ocw/config.toml — see github.com/Metabuilder-Labs/openclawwatch#conf', c: ['t-dim'], delay: 4400 },
+      { txt: 'Next steps: 1. Instrument your agent 2. Run your agent — spans', c: ['t-dim'], delay: 2300 },
+      { txt: 'are recorded automatically 3. View telemetry', c: ['t-dim'], delay: 2400 },
     ]
   },
   {
