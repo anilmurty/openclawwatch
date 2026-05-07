@@ -288,14 +288,14 @@
     position: absolute; inset: 0;
     width: 100%; height: 100%;
     pointer-events: none;
-    color: rgba(var(--accent-rgb),0.22);
-    mask-image: radial-gradient(ellipse 75% 55% at 50% 40%, black 25%, transparent 95%);
-    -webkit-mask-image: radial-gradient(ellipse 75% 55% at 50% 40%, black 25%, transparent 95%);
+    color: rgba(var(--accent-rgb),0.45);
+    mask-image: radial-gradient(ellipse 95% 85% at 50% 45%, black 35%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 95% 85% at 50% 45%, black 35%, transparent 100%);
   }
   .hero-network .edge {
     stroke: currentColor;
-    stroke-width: 0.6;
-    opacity: 0.45;
+    stroke-width: 1;
+    opacity: 0.55;
   }
   .hero-network .node {
     fill: currentColor;
@@ -1266,63 +1266,7 @@
 
 <!-- HERO -->
 <section class="hero">
-  <svg class="hero-network" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <g class="edges">
-      <line class="edge" x1="180" y1="140" x2="290" y2="110"/>
-      <line class="edge" x1="290" y1="110" x2="240" y2="230"/>
-      <line class="edge" x1="240" y1="230" x2="140" y2="260"/>
-      <line class="edge" x1="180" y1="140" x2="140" y2="260"/>
-      <line class="edge" x1="290" y1="110" x2="560" y2="80"/>
-      <line class="edge" x1="560" y1="80" x2="700" y2="160"/>
-      <line class="edge" x1="700" y1="160" x2="820" y2="100"/>
-      <line class="edge" x1="820" y1="100" x2="920" y2="220"/>
-      <line class="edge" x1="700" y1="160" x2="920" y2="220"/>
-      <line class="edge" x1="920" y1="220" x2="1260" y2="140"/>
-      <line class="edge" x1="1260" y1="140" x2="1400" y2="90"/>
-      <line class="edge" x1="1400" y1="90" x2="1340" y2="250"/>
-      <line class="edge" x1="1260" y1="140" x2="1340" y2="250"/>
-      <line class="edge" x1="1340" y1="250" x2="1480" y2="220"/>
-      <line class="edge" x1="140" y1="260" x2="120" y2="480"/>
-      <line class="edge" x1="120" y1="480" x2="260" y2="520"/>
-      <line class="edge" x1="260" y1="520" x2="180" y2="640"/>
-      <line class="edge" x1="120" y1="480" x2="180" y2="640"/>
-      <line class="edge" x1="260" y1="520" x2="760" y2="540"/>
-      <line class="edge" x1="760" y1="540" x2="920" y2="620"/>
-      <line class="edge" x1="920" y1="620" x2="1340" y2="480"/>
-      <line class="edge" x1="1480" y1="220" x2="1340" y2="480"/>
-      <line class="edge" x1="1340" y1="480" x2="1480" y2="540"/>
-      <line class="edge" x1="1480" y1="540" x2="1380" y2="660"/>
-      <line class="edge" x1="1340" y1="480" x2="1380" y2="660"/>
-      <line class="edge" x1="180" y1="640" x2="380" y2="780"/>
-      <line class="edge" x1="380" y1="780" x2="760" y2="540"/>
-      <line class="edge" x1="920" y1="620" x2="1180" y2="780"/>
-      <line class="edge" x1="1180" y1="780" x2="1380" y2="660"/>
-    </g>
-    <g class="nodes">
-      <circle class="node" cx="180" cy="140" r="2"/>
-      <circle class="node" cx="290" cy="110" r="2"/>
-      <circle class="node" cx="240" cy="230" r="2"/>
-      <circle class="node" cx="140" cy="260" r="2"/>
-      <circle class="node" cx="560" cy="80" r="2"/>
-      <circle class="node node-pulse" cx="700" cy="160" r="2.5"/>
-      <circle class="node" cx="820" cy="100" r="2"/>
-      <circle class="node" cx="920" cy="220" r="2"/>
-      <circle class="node" cx="1260" cy="140" r="2"/>
-      <circle class="node" cx="1400" cy="90" r="2"/>
-      <circle class="node" cx="1340" cy="250" r="2"/>
-      <circle class="node" cx="1480" cy="220" r="2"/>
-      <circle class="node" cx="120" cy="480" r="2"/>
-      <circle class="node" cx="260" cy="520" r="2"/>
-      <circle class="node" cx="180" cy="640" r="2"/>
-      <circle class="node node-pulse node-pulse-2" cx="760" cy="540" r="2.5"/>
-      <circle class="node" cx="920" cy="620" r="2"/>
-      <circle class="node" cx="1340" cy="480" r="2"/>
-      <circle class="node node-pulse node-pulse-3" cx="1480" cy="540" r="2.5"/>
-      <circle class="node" cx="1380" cy="660" r="2"/>
-      <circle class="node" cx="380" cy="780" r="2"/>
-      <circle class="node" cx="1180" cy="780" r="2"/>
-    </g>
-  </svg>
+  <svg class="hero-network" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
   <div class="hero-glow"></div>
 
   <div class="hero-inner">
@@ -1862,6 +1806,71 @@
 
 
 <script>
+// ─── HERO NETWORK CONSTELLATION ────────────────────────────────
+(function() {
+  var svg = document.querySelector('.hero-network');
+  if (!svg) return;
+  var ns = 'http://www.w3.org/2000/svg';
+  // Deterministic seeded RNG so the constellation is identical between renders
+  var s = 1337;
+  function rng() { s = (s * 9301 + 49297) % 233280; return s / 233280; }
+  var W = 1600, H = 900;
+  var cols = 12, rows = 7;
+  var nodes = [];
+  for (var r = 0; r < rows; r++) {
+    for (var c = 0; c < cols; c++) {
+      var x = (c + 0.5) * (W / cols) + (rng() - 0.5) * 90;
+      var y = (r + 0.5) * (H / rows) + (rng() - 0.5) * 70;
+      nodes.push({ x: x, y: y });
+    }
+  }
+  // Generate candidate edges to right, down-right, down, down-left neighbors
+  var candidates = [];
+  for (var rr = 0; rr < rows; rr++) {
+    for (var cc = 0; cc < cols; cc++) {
+      var i = rr * cols + cc;
+      if (cc < cols - 1) candidates.push([i, i + 1]);
+      if (rr < rows - 1) candidates.push([i, i + cols]);
+      if (rr < rows - 1 && cc < cols - 1) candidates.push([i, i + cols + 1]);
+      if (rr < rows - 1 && cc > 0) candidates.push([i, i + cols - 1]);
+    }
+  }
+  // Keep ~65% of candidate edges for an organic, non-grid look
+  var edges = candidates.filter(function() { return rng() > 0.35; });
+  var edgeGroup = document.createElementNS(ns, 'g');
+  edgeGroup.setAttribute('class', 'edges');
+  edges.forEach(function(e) {
+    var line = document.createElementNS(ns, 'line');
+    line.setAttribute('class', 'edge');
+    line.setAttribute('x1', nodes[e[0]].x.toFixed(1));
+    line.setAttribute('y1', nodes[e[0]].y.toFixed(1));
+    line.setAttribute('x2', nodes[e[1]].x.toFixed(1));
+    line.setAttribute('y2', nodes[e[1]].y.toFixed(1));
+    edgeGroup.appendChild(line);
+  });
+  svg.appendChild(edgeGroup);
+  var nodeGroup = document.createElementNS(ns, 'g');
+  nodeGroup.setAttribute('class', 'nodes');
+  // Pick 5 indices to pulse, evenly distributed
+  var pulseCount = 5;
+  var pulseIdx = [];
+  for (var p = 0; p < pulseCount; p++) {
+    pulseIdx.push(Math.floor((p + 0.5) * nodes.length / pulseCount + (rng() - 0.5) * 6));
+  }
+  nodes.forEach(function(n, i) {
+    var circle = document.createElementNS(ns, 'circle');
+    var pulsePos = pulseIdx.indexOf(i);
+    var isPulse = pulsePos !== -1;
+    circle.setAttribute('class', 'node' + (isPulse ? ' node-pulse' : ''));
+    circle.setAttribute('cx', n.x.toFixed(1));
+    circle.setAttribute('cy', n.y.toFixed(1));
+    circle.setAttribute('r', isPulse ? 3 : 2.2);
+    if (isPulse) circle.style.animationDelay = (pulsePos * 0.72).toFixed(2) + 's';
+    nodeGroup.appendChild(circle);
+  });
+  svg.appendChild(nodeGroup);
+})();
+
 // ─── TERMINAL STEPS ────────────────────────────────────────────
 const steps = [
   {
