@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-OpenClawWatch is an open-source, OTel-native observability tool for autonomous AI agents. This repo contains the **landing page** hosted at [opencla.watch](https://opencla.watch). The actual CLI tool is not in this repo yet. Sibling product: [cla.watch](https://cla.watch) (commercial tier — same product family, uses green accent instead of blue).
+TokenJam is an open-source, OTel-native observability tool for autonomous AI agents. This repo contains the **landing page** hosted at [tokenjam.dev](https://tokenjam.dev). The actual CLI tool is not in this repo yet. Commercial tier lives at [cloud.tokenjam.dev](https://cloud.tokenjam.dev). The CLI command is `tj`.
 
 ## Architecture
 
@@ -47,4 +47,4 @@ CSS custom properties defined in `:root` of `index.html`:
 
 ## SEO & Social
 
-The `<head>` contains Open Graph and Twitter Card meta tags. When changing the page title, description, or preview image, update all corresponding `og:*` and `twitter:*` meta tags as well as the `<title>` and `<meta name="description">`. The canonical URL is `https://opencla.watch/`. A `sitemap.xml` and `robots.txt` are present at the repo root.
+The `<head>` contains Open Graph and Twitter Card meta tags. When changing the page title, description, or preview image, update all corresponding `og:*` and `twitter:*` meta tags as well as the `<title>` and `<meta name="description">`. The canonical URL is `https://tokenjam.dev/`. A `sitemap.xml` and `robots.txt` are present at the repo root.

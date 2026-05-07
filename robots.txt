@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://opencla.watch/sitemap.xml
+Sitemap: https://tokenjam.dev/sitemap.xml
