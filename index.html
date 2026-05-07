@@ -1135,65 +1135,6 @@
 
   .solution-item-check svg { width: 10px; height: 10px; color: var(--blue); }
 
-  /* ─── OSS BOUNDARY TABLE ──────────────────────────── */
-  .boundary-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-  }
-
-  .boundary-table thead th {
-    font-family: 'Geist Mono', monospace;
-    font-size: 12px;
-    font-weight: 500;
-    padding: 12px 20px;
-    text-align: left;
-    color: var(--text-light);
-    border-bottom: 2px solid var(--border-light);
-  }
-
-  .boundary-table thead th.oss-col {
-    color: var(--blue);
-    background: rgba(var(--accent-rgb),0.04);
-    border-bottom-color: var(--blue);
-    border-left: 1px solid var(--border-light);
-    border-right: 1px solid var(--border-light);
-  }
-
-  .boundary-table thead th.saas-col {
-    color: var(--accent-blue);
-    background: rgba(var(--accent-blue-rgb),0.04);
-    border-bottom-color: var(--accent-blue);
-  }
-
-  .boundary-table tbody td {
-    padding: 10px 20px;
-    border-bottom: 1px solid var(--border-light);
-    color: var(--text-mid);
-    font-size: 13.5px;
-  }
-
-  .boundary-table tbody td.oss-col {
-    background: rgba(var(--accent-rgb),0.03);
-    border-left: 1px solid var(--border-light);
-    border-right: 1px solid var(--border-light);
-    font-family: 'Geist Mono', monospace;
-    font-size: 12.5px;
-    color: var(--blue);
-  }
-
-  .boundary-table tbody td.saas-col {
-    font-family: 'Geist Mono', monospace;
-    font-size: 12.5px;
-    color: var(--accent-blue);
-  }
-
-  .boundary-table tbody td.saas-col.na {
-    color: rgba(var(--accent-rgb),0.4);
-  }
-
-  .boundary-table tbody tr:last-child td { border-bottom: none; }
-
   /* Responsive */
   @media (max-width: 768px) {
     nav { padding: 0 20px; }
@@ -1240,7 +1181,6 @@
     <li><a href="#features">Features</a></li>
     <li><a href="#install">Install</a></li>
     <li><a href="#compare">Compare</a></li>
-    <li><a href="#oss-boundary">Cloud</a></li>
     <li><a href="https://github.com/metabuilder-labs/tokenjam#readme" target="_blank" rel="noopener noreferrer">Docs ↗</a></li>
   </ul>
 
@@ -1711,49 +1651,6 @@
 </section>
 
 
-<!-- OSS / COMMERCIAL BOUNDARY -->
-<section class="section-light" id="oss-boundary">
-  <div class="container">
-    <div class="section-label">oss boundary</div>
-    <h2>OSS is genuinely useful.<br>Commercial solves a different problem.</h2>
-    <p class="section-desc">
-      The commercial tier isn't a restriction — it's for teams. Multi-agent aggregation, dashboards, and SSO require cloud infrastructure that is out of scope for a local developer tool by design.
-    </p>
-
-    <div style="overflow-x: auto; border-radius: 12px; border: 1px solid var(--border-light);">
-      <table class="boundary-table">
-        <thead>
-          <tr>
-            <th style="width: 40%;">Capability</th>
-            <th class="oss-col">TokenJam OSS</th>
-            <th class="saas-col">TokenJam Cloud</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Telemetry collection</td><td class="oss-col">✓ All runtimes</td><td class="saas-col">✓ Via OSS layer</td></tr>
-          <tr><td>OTLP export (Grafana, Jaeger, etc.)</td><td class="oss-col">✓ Full export</td><td class="saas-col">✓ Plus hosted ingestion</td></tr>
-          <tr><td>Token &amp; cost tracking</td><td class="oss-col">✓ Single agent</td><td class="saas-col">✓ Multi-agent + org budgets</td></tr>
-          <tr><td>Local safety alerts</td><td class="oss-col">✓ stdout / webhook / file</td><td class="saas-col">✓ Plus cloud channels</td></tr>
-          <tr><td>Behavioral drift detection</td><td class="oss-col">✓ Deterministic, local</td><td class="saas-col">✓ Plus LLM-as-judge</td></tr>
-          <tr><td>Output schema validation</td><td class="oss-col">✓ JSON Schema</td><td class="saas-col">✓ Plus custom eval rules</td></tr>
-          <tr><td>CLI interface</td><td class="oss-col">✓ Full featured</td><td class="saas-col na">—</td></tr>
-          <tr><td>Local REST API</td><td class="oss-col">✓ localhost</td><td class="saas-col">✓ Cloud-hosted</td></tr>
-          <tr><td>Web dashboard &amp; charts</td><td class="oss-col" style="color:rgba(var(--accent-rgb),0.4);">— intentionally excluded</td><td class="saas-col">✓</td></tr>
-          <tr><td>Multi-agent aggregation</td><td class="oss-col" style="color:rgba(var(--accent-rgb),0.4);">— out of scope</td><td class="saas-col">✓</td></tr>
-          <tr><td>SSO / RBAC</td><td class="oss-col" style="color:rgba(var(--accent-rgb),0.4);">—</td><td class="saas-col">✓</td></tr>
-          <tr><td>LLM-as-judge evaluation</td><td class="oss-col" style="color:rgba(var(--accent-rgb),0.4);">—</td><td class="saas-col">✓</td></tr>
-          <tr><td>Hosted retention &amp; search</td><td class="oss-col" style="color:rgba(var(--accent-rgb),0.4);">—</td><td class="saas-col">✓</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p style="margin-top: 20px; font-size: 13px; color: var(--text-light); font-family: 'Geist Mono', monospace;">
-      Want the commercial tier? → <a href="https://cloud.tokenjam.dev" target="_blank" rel="noopener noreferrer" style="color: var(--blue);">cloud.tokenjam.dev</a>
-    </p>
-  </div>
-</section>
-
-
 <!-- CONNECT -->
 <section class="connect-section" id="connect">
   <div class="connect-inner">
@@ -1822,14 +1719,13 @@
       <a href="https://github.com/metabuilder-labs/tokenjam" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
       <a href="https://pypi.org/project/tokenjam/" target="_blank" rel="noopener noreferrer">PyPI ↗</a>
       <a href="https://www.npmjs.com/package/@tokenjam/sdk" target="_blank" rel="noopener noreferrer">npm ↗</a>
-      <a href="https://cloud.tokenjam.dev" target="_blank" rel="noopener noreferrer">cloud.tokenjam.dev ↗</a>
       <a href="https://github.com/metabuilder-labs/tokenjam#readme" target="_blank" rel="noopener noreferrer">Docs ↗</a>
     </div>
   </div>
   <div class="footer-right">
-    <a href="https://cloud.tokenjam.dev" target="_blank" rel="noopener noreferrer" style="color: rgba(var(--accent-rgb),0.35); font-size: 12px; font-family: 'Geist Mono', monospace;">
-      Part of the TokenJam ecosystem
-    </a>
+    <span style="color: rgba(var(--accent-rgb),0.35); font-size: 12px; font-family: 'Geist Mono', monospace;">
+      A Metabuilder Labs Product
+    </span>
   </div>
 </footer>
 

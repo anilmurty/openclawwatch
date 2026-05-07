@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-TokenJam is an open-source, OTel-native observability tool for autonomous AI agents. This repo contains the **landing page** hosted at [tokenjam.dev](https://tokenjam.dev). The actual CLI tool is not in this repo yet. Commercial tier lives at [cloud.tokenjam.dev](https://cloud.tokenjam.dev). The CLI command is `tj`.
+TokenJam is an open-source, OTel-native observability tool for autonomous AI agents, by Metabuilder Labs. This repo contains the **landing page** hosted at [tokenjam.dev](https://tokenjam.dev). The actual CLI tool is not in this repo yet. The CLI command is `tj`.
 
 ## Architecture
 

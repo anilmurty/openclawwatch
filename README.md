@@ -20,10 +20,6 @@ TokenJam is a CLI-based observability tool for developers building agentic AI sy
 
 TokenJam is in active development. This repo currently hosts the landing page at [tokenjam.dev](https://tokenjam.dev). The CLI tool is coming soon.
 
-## Commercial tier
-
-For teams needing multi-agent aggregation, dashboards, SSO/RBAC, and hosted retention, see [cloud.tokenjam.dev](https://cloud.tokenjam.dev).
-
 ## License
 
 MIT / Apache 2.0
