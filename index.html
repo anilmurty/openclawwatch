@@ -288,14 +288,14 @@
     position: absolute; inset: 0;
     width: 100%; height: 100%;
     pointer-events: none;
-    color: rgba(var(--accent-rgb),0.45);
-    mask-image: radial-gradient(ellipse 95% 85% at 50% 45%, black 35%, transparent 100%);
-    -webkit-mask-image: radial-gradient(ellipse 95% 85% at 50% 45%, black 35%, transparent 100%);
+    color: rgba(var(--accent-rgb),0.3);
+    mask-image: radial-gradient(ellipse 70% 45% at 50% 30%, black 15%, transparent 85%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 45% at 50% 30%, black 15%, transparent 85%);
   }
   .hero-network .edge {
     stroke: currentColor;
-    stroke-width: 1;
-    opacity: 0.55;
+    stroke-width: 0.8;
+    opacity: 0.5;
   }
   .hero-network .node {
     fill: currentColor;
@@ -1815,12 +1815,12 @@
   var s = 1337;
   function rng() { s = (s * 9301 + 49297) % 233280; return s / 233280; }
   var W = 1600, H = 900;
-  var cols = 12, rows = 7;
+  var cols = 8, rows = 4;
   var nodes = [];
   for (var r = 0; r < rows; r++) {
     for (var c = 0; c < cols; c++) {
-      var x = (c + 0.5) * (W / cols) + (rng() - 0.5) * 90;
-      var y = (r + 0.5) * (H / rows) + (rng() - 0.5) * 70;
+      var x = (c + 0.5) * (W / cols) + (rng() - 0.5) * 100;
+      var y = (r + 0.5) * (H / rows) + (rng() - 0.5) * 80;
       nodes.push({ x: x, y: y });
     }
   }
@@ -1835,8 +1835,8 @@
       if (rr < rows - 1 && cc > 0) candidates.push([i, i + cols - 1]);
     }
   }
-  // Keep ~65% of candidate edges for an organic, non-grid look
-  var edges = candidates.filter(function() { return rng() > 0.35; });
+  // Keep ~50% of candidate edges for an organic, non-grid look
+  var edges = candidates.filter(function() { return rng() > 0.5; });
   var edgeGroup = document.createElementNS(ns, 'g');
   edgeGroup.setAttribute('class', 'edges');
   edges.forEach(function(e) {
@@ -1852,7 +1852,7 @@
   var nodeGroup = document.createElementNS(ns, 'g');
   nodeGroup.setAttribute('class', 'nodes');
   // Pick 5 indices to pulse, evenly distributed
-  var pulseCount = 5;
+  var pulseCount = 3;
   var pulseIdx = [];
   for (var p = 0; p < pulseCount; p++) {
     pulseIdx.push(Math.floor((p + 0.5) * nodes.length / pulseCount + (rng() - 0.5) * 6));
