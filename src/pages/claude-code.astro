@@ -3,7 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
 const installLines = [
   'pip install "tokenjam[mcp]"',
-  'tj onboard --claude-code',
+  'tj onboard  --claude-code',
   'tj optimize',
 ];
 const installJoined = installLines.join('\n');
@@ -105,7 +105,7 @@ const installJoined = installLines.join('\n');
       overflow-wrap: anywhere;
       word-break: break-word;
     }
-    .tline { display: block; transition: opacity 0.2s ease; }
+    .tline { display: block; white-space: pre-wrap; transition: opacity 0.2s ease; }
     .tline-hidden { opacity: 0; }
     .t-prompt { color: rgba(var(--accent-rgb),0.7); }
     .t-cmd { color: var(--white); }
@@ -247,7 +247,7 @@ const installJoined = installLines.join('\n');
       if (!body) return;
 
       const lines = [
-        { txt: '$ tj optimize --agent claude-code-myproj', c: ['t-prompt','t-cmd'], delay: 0 },
+        { txt: '$ tj optimize  --agent claude-code-myproj', c: ['t-prompt','t-cmd'], delay: 0 },
         { txt: '', delay: 700 },
         { txt: 'Analyzing 39 sessions, 1.8M tokens, $160.35 spend (last 30d)...', c: ['t-dim'], delay: 900 },
         { txt: '', delay: 1500 },
