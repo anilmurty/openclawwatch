@@ -1,0 +1,103 @@
+---
+title: "What is an agent control plane?"
+description: "Agent control planes: the runtime layer that governs AI agent behavior across a fleet. Policy enforcement, budget caps, audit trails, and how it differs from observability and guardrails."
+author: "anil-murty"
+publishDate: 2026-05-21
+tags: ["control-plane", "governance", "agents", "fleet"]
+pillar: "control-plane"
+---
+
+import TLDR from '@/components/TLDR.astro';
+import DefinitionBox from '@/components/DefinitionBox.astro';
+import FAQBlock from '@/components/FAQBlock.astro';
+
+<TLDR>
+- An agent control plane is the runtime governance layer that enforces policies across a fleet of agents: policy rules, budget caps, action blocking, audit trails.
+- It is *active* enforcement (it stops things from happening), not passive observation. Different from [observability](/blog/2026-05-09-agent-observability).
+- It governs multi-execution behavior (this agent ran out of budget; halt it), not individual responses. Different from [guardrails](/blog/2026-05-20-what-are-ai-guardrails).
+- Core capabilities: declarative policies, hot-reload, distributed enforcement, tamper-evident audit logs, [human-in-the-loop primitives](/blog/2026-05-21-what-is-human-in-the-loop-for-ai-agents).
+- A just-emerged category. The 2026 entrants are enterprise-first or infrastructure-heavy; a dev-first, local-first OSS option is still uncommon.
+</TLDR>
+
+<DefinitionBox term="Agent control plane">
+An agent control plane is the layer that governs what AI agents do at runtime, across a fleet. It enforces policies (which actions an agent can take, budget caps, sensitive-data thresholds), responds to drift (an agent deviates from its intended behavior; what happens next?), logs all decisions in an auditable way, and coordinates behavior across multiple agents. It is to a fleet of agents what an orchestration platform is to a swarm of microservices: the central nervous system that keeps things running safely and consistently.
+</DefinitionBox>
+
+Control planes are not a new concept. Kubernetes is a control plane for containers. Datadog is a control plane for infrastructure. Splunk is a control plane for logs. What is new is the application of this thinking to AI agents in production.
+
+## Active vs passive: control plane vs observability
+
+The clearest way to distinguish a control plane from [observability](/blog/2026-05-09-agent-observability) is the direction of causality.
+
+**Observability is passive.** An observability tool tells you what happened. Your agent made a decision; the observability tool records it, surfaces it, alerts you. You see the data and decide what to do next. The tool itself does not stop the agent from running. It is reactive.
+
+**A control plane is active.** A control plane makes things happen or stops things from happening. Your agent is running a sequence of operations and approaches its budget limit; the control plane halts it mid-execution. Your agent tries to access a sensitive resource; the control plane intercepts the call and blocks it. Your agent is drifting from its intended policy; the control plane logs an incident and triggers a human review. The control plane is *preventing* unwanted outcomes in real time, not just reporting on them.
+
+You can and should have both. Observability tells you the story; a control plane writes the constraints into the story before it happens. Observability is data; a control plane is decision-making.
+
+## Per-response vs cross-execution: control plane vs guardrails
+
+The second distinction is the scope of enforcement.
+
+**Guardrails are per-response.** A guardrail is a filter that sits between an LLM and its output. Text in, filter, text out. A guardrail might block a response because it contains a slur, hallucinated credentials, or an unsafe instruction. It is a gate on individual generations. See [What are AI guardrails](/blog/2026-05-20-what-are-ai-guardrails) for more.
+
+**A control plane is cross-execution.** A control plane tracks state across many actions over time. This agent has now made fifty decisions and spent 60% of its monthly budget. It has triggered sensitive-data policies three times in the last hour. It is communicating with a service it has never accessed before. These are signals that only make sense when aggregated across the agent's entire runtime. A control plane sees the trajectory; a guardrail sees the frame.
+
+You can and should have both. A guardrail blocks an unsafe response; a control plane halts an agent that is persistently trying unsafe things and needs human investigation.
+
+## Core capabilities
+
+Production agent control planes offer several overlapping capabilities:
+
+**Policies-as-code.** Policies are declared in a human-readable, version-controllable format (YAML, Rego, or similar). "Agents in the finance group may only access approved payment systems." "If any agent exceeds $100 spend in an hour, escalate to a human." Policies live in version control alongside your code, not hidden in a UI.
+
+**Hot-reloadable rules.** You update a policy and it takes effect immediately across the entire fleet without restarting agents. In a fast-moving environment, the ability to fix a policy mistake in seconds, not hours, is critical.
+
+**Distributed enforcement.** Policies are enforced at the edge, inside the agent runtime itself or at a gateway, not only at a central point. This keeps latency low and resilience high.
+
+**Audit logging.** Every decision the control plane makes (every policy check, every block, every escalation) is logged in a tamper-evident way. You can audit why a decision was made, by which policy, at which timestamp, with which context. This is essential for compliance and forensics.
+
+**Human-in-the-loop primitives.** The control plane integrates with human review workflows. When a policy triggers an escalation, it surfaces the context (the agent's state, the attempted action, the policy that fired) to a human reviewer who can approve, deny, or modify the action. See [What is human-in-the-loop for AI agents](/blog/2026-05-21-what-is-human-in-the-loop-for-ai-agents) for more on this pattern.
+
+## The just-emerged category: who is building this
+
+The agent control plane category is young. Most of what exists today shipped in the last six months, and the products are still evolving fast. As of mid-2026, four entrants define the space.
+
+**Galileo Agent Control** launched in March 2026 as an open-source control plane (Apache 2.0). Its core idea is "write policies once, deploy anywhere": guardrails and policies are decoupled from individual agents and applied across a fleet from a central definition. It is vendor-neutral and supports any agent framework, with launch integrations for Strands Agents, CrewAI, Glean, and Cisco AI Defense. (Galileo is in the process of being acquired by Cisco.)
+
+**Salesforce Agent Fabric** is a multi-vendor control plane that centralizes governance, orchestration, and observability across agents built on Agentforce, Amazon Bedrock, Microsoft Foundry, and other platforms. Its components include Agent Broker for deterministic orchestration, LLM governance on an AI Gateway, and an MCP Bridge that makes existing APIs agent-ready. Salesforce frames the approach as "guided determinism," an acknowledgment that fully autonomous multi-agent orchestration is not yet enterprise-ready.
+
+**Microsoft Agent 365** went generally available in May 2026 as the control plane for agents inside the Microsoft 365 and Azure ecosystem. It provides a registry, access control, visualization, interoperability, and security across agents regardless of how they were built. Its identity model, Entra Agent ID, treats each agent as a managed identity in the directory, applying the same authentication and access controls used for human users.
+
+**HumanLayer ACP** (Agent Control Plane) is an open-source, Kubernetes-native scheduler for unsupervised "outer-loop" agents. It handles asynchronous LLM inference and long-running tool calls, has full MCP support, and integrates HumanLayer's approval channels for human-in-the-loop steps. It is the most developer-oriented of the four, though it requires a Kubernetes cluster to run.
+
+A pattern is visible across the four. Salesforce Agent Fabric and Microsoft Agent 365 are enterprise-platform plays, tied to their respective clouds and suites. Galileo Agent Control is open-source, and the full value still depends on Galileo's commercial platform. HumanLayer ACP is open-source and developer-facing, and it requires Kubernetes. A control plane that installs in one line, runs locally, and scales to a fleet (the way an observability agent or a linter does) is still uncommon. The category is real, the early products are credible, and the dev-first end of it is not yet settled.
+
+## The Kubernetes analogy
+
+The relationship between agents and agent control planes mirrors the relationship between containers and Kubernetes.
+
+Containers are useful on their own. You can run a single container and it works. Once you run dozens or hundreds of containers in production, you need an orchestration layer. Kubernetes provides scheduling, resource limits, networking, restart policies, rolling updates, and observability. It is the nervous system that keeps a containerized system functioning safely at scale.
+
+An agent is useful on its own, too. A single agent that reliably solves a task is genuinely useful. Once you deploy dozens or hundreds of agents in production, across different teams, with different responsibilities, accessing different resources, you need a governance layer. A control plane provides budget enforcement, action approval workflows, policy mutation without restart, and drift detection. It is the nervous system that keeps an agentic system functioning safely at scale.
+
+The analogy is not perfect. Kubernetes took a decade to reach its current maturity; agent control planes are at the Kubernetes 0.1 stage, if that. The parallel is still instructive. The infrastructure you need to run containers safely at scale is different from the infrastructure you need to run a single container. The infrastructure you need to run agents safely at scale is different from the infrastructure you need to run a single agent.
+
+Over the next 24 months, expect to see:
+
+1. **Maturation of policy frameworks.** Control planes will converge on clearer abstractions for expressing policies, much as Kubernetes eventually settled on Pods, Services, and Deployments.
+
+2. **Integration with observability.** Control planes will draw stronger connections with observability tools, using signals from monitoring (this agent is behaving oddly) to trigger policy actions (escalate to a human).
+
+3. **Ecosystem consolidation.** Most enterprises will not run their own control plane from scratch. They will adopt a product, embed it into a platform, or layer it into an existing orchestration system.
+
+4. **Open-source alternatives.** The OSS community will likely produce at least one dev-first "default" control plane, the way Kubernetes became the default for containers.
+
+## Common questions
+
+<FAQBlock items={[
+  { question: "My agent blew past its budget cap and kept running. What went wrong?", answer: "Almost always, the budget cap was an *alert*, not an *enforcement point*. A lot of 'budget cap' features only watch spend and fire a notification when a threshold is crossed. The agent never checks back, so it keeps going. For a cap to actually halt an agent, the control plane has to sit in the execution path: the agent (or its runtime) checks the budget before each model call, and the control plane returns 'denied' once the cap is hit. The other common failure is interval lag. If spend is aggregated every 60 seconds and your agent makes 40 calls in that window, it can overshoot the cap substantially before the next check. Fixes: enforce at the call site rather than on a timer, and set the cap low enough to absorb one interval's worth of overshoot. This distinction is the whole point of a control plane: observability tells you the cap was crossed, a control plane stops the agent at the cap." },
+  { question: "I updated a policy but agents are still using the old one. Why?", answer: "The agents loaded the policy at startup and never re-read it. Without hot-reload, a policy change only takes effect when each agent restarts, which means a fleet can run mixed policy versions for hours. Real hot-reload means the control plane pushes the new policy (or the agents poll for it) and every running agent picks it up within seconds, mid-task. Check three things. First, is your control plane actually hot-reloadable, or does it just claim to be? Second, is there a cache layer (a gateway, a local policy daemon) holding the old version? Third, are policies versioned, so you can confirm which version an agent is enforcing? If you can't answer 'which policy version is agent X running right now,' you don't have a control plane, you have a config file." },
+  { question: "Do I need a control plane for one agent?", answer: "Probably not. A single agent running a well-defined task in a controlled environment may not require policy enforcement or distributed audit logging. Start with observability and guardrails. As you add more agents, different responsibilities, and external dependencies (APIs, databases, other agents), the case for a control plane gets stronger." },
+  { question: "How is policy-as-code different from guardrails?", answer: "A guardrail is embedded in the response generation process (block this unsafe text). Policy-as-code lives outside the agent, in a separate layer, and governs the agent's *behavior*: what it can attempt, not just what it can say. A policy might say 'this agent cannot call the payroll API.' A guardrail might say 'do not output employee salary figures.' They are complementary, operating at different levels." }
+]} />
