@@ -256,6 +256,11 @@ const installJoined = installLines.join('\n');
           class="product-card"
           style={`--product-accent: ${p.accent}; --product-accent-rgb: ${p.accentRgb};`}
         >
+          <a
+            class="product-card-overlay"
+            href={`/products/${p.slug}`}
+            aria-label={`Read more about ${p.name}`}
+          ></a>
           <header class="product-card-head">
             <h3 class="product-card-name">{p.name}</h3>
             <p class="product-card-blurb">{p.blurb}</p>
@@ -754,6 +759,7 @@ const installJoined = installLines.join('\n');
       margin-top: 8px;
     }
     .product-card {
+      position: relative;
       display: flex;
       flex-direction: column;
       gap: 16px;
@@ -763,6 +769,20 @@ const installJoined = installLines.join('\n');
       border-top: 2px solid var(--product-accent, var(--blue-line));
       border-radius: 14px;
       transition: border-color .2s, transform .2s, box-shadow .2s;
+      cursor: pointer;
+    }
+    /* Full-card click target. Real <a> so it gets browser navigation + pointer cursor +
+       keyboard focus by default. aria-label provides accessible naming. Sits on top of
+       all non-positioned card content so clicks anywhere hit the overlay first. */
+    .product-card-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      border-radius: inherit;
+    }
+    .product-card-overlay:focus-visible {
+      outline: 2px solid var(--product-accent, var(--accent-blue));
+      outline-offset: 2px;
     }
     .product-card:hover {
       border-color: rgba(var(--product-accent-rgb, 255, 255, 255), 0.35);
@@ -805,10 +825,10 @@ const installJoined = installLines.join('\n');
       flex: 1;
     }
     .product-card-link {
-      align-self: flex-start;
+      align-self: flex-end;
       font-family: 'Geist Mono', monospace;
       font-size: 13px;
-      color: var(--product-accent, var(--accent-blue));
+      color: var(--accent-blue);
       text-decoration: none;
       transition: opacity .15s;
     }
