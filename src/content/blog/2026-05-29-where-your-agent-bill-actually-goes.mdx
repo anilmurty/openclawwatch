@@ -5,7 +5,7 @@ author: "anil-murty"
 publishDate: 2026-05-29
 tags: ["cost", "agents", "optimization", "thesis"]
 pillar: "thesis"
-image: "/og-image.png"
+image: "/blog/where-your-agent-bill-actually-goes.jpg"
 ---
 
 import TLDR from '@/components/TLDR.astro';
@@ -38,7 +38,7 @@ System prompts, tool definitions, and project context that grow over time withou
 
 This is often the largest single pattern in production. A typical agent session sends thousands of tokens of project context, system prompt, and tool definitions on every single turn: not retries, not reasoning chains, not output tokens. Most of those tokens are not doing useful work; they are retransmitting the same text repeatedly across calls. Anthropic's prompt-caching pricing makes the cost gap explicit: [cache reads are 10% of normal input-token cost](https://docs.claude.com/en/docs/build-with-claude/prompt-caching), and a stable prefix that's reused dozens of times in a session pays roughly an order of magnitude more than it should if no `cache_control` breakpoint is configured. Most production users haven't configured one.
 
-![Where the input tokens go in a typical agent call: stable prefix dominates (illustrative)](/blog/images/input-token-breakdown.png)
+![Where the input tokens go in a typical agent call: stable prefix dominates (illustrative)](/blog/images/input-token-breakdown.jpg)
 
 **The technique that addresses it.** [LLMLingua-2](https://arxiv.org/abs/2403.12968) (Microsoft, ACL 2024). The technique reframes prompt compression as a token classification problem: train a BERT-class model, distilled from GPT-4, that scores each token's contribution to the response. Tokens scoring low can be removed without measurable quality loss. The [model is MIT-licensed](https://github.com/microsoft/LLMLingua) and runs on CPU. Microsoft's published benchmarks showed up to 20× compression on GSM8K and BBH while preserving in-context-learning quality, with 3-6× faster inference than the original LLMLingua.
 
@@ -66,7 +66,7 @@ This is the cleanest case of "the research is years old, the technique is straig
 
 Results that should be cached are recomputed. A system prompt or tool definition that's identical on every call is sent at full input-token cost every call rather than at the cached read rate. Anthropic charges 10% of the normal input-token rate on cache reads and 25% extra on the cache write; the math is straightforward, and most production users are leaving 30-60% of their input cost on the table because they haven't configured `cache_control` breakpoints correctly.
 
-![Cached vs uncached prompt prefix: 90% savings on stable system context](/blog/images/cache-control-diagram.png)
+![Cached vs uncached prompt prefix: 90% savings on stable system context](/blog/images/cache-control-diagram.jpg)
 
 For Claude Code specifically, the data is right there in every JSONL session log: `cache_read_input_tokens` and `cache_creation_input_tokens` appear in the `usage` block of every assistant turn. A user who is paying full price on a stable 2,400-token prefix across 94% of their calls is leaving substantial savings unclaimed.
 
@@ -80,7 +80,7 @@ Each of the five patterns is a place where the gap between "what we know" and "w
 
 What's missing isn't theoretical capability. The papers are public, the code is on GitHub, the techniques compose. What's missing is the operational surface: a tool that ingests a team's actual telemetry, runs the analyses, and produces a ranked list of specific, evidence-backed changes that team should make this week.
 
-![Cost-per-session distribution showing a fat tail of expensive sessions (illustrative)](/blog/images/cost-per-session-distribution.png)
+![Cost-per-session distribution showing a fat tail of expensive sessions (illustrative)](/blog/images/cost-per-session-distribution.jpg)
 
 ## Common questions
 
